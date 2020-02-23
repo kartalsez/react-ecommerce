@@ -1,0 +1,63 @@
+.filters {
+  width: 100%;
+  flex: 1 1 15%;
+  margin-right: 15px;
+
+  .title {
+    margin-top: 2px;
+    margin-bottom: 20px;
+  }
+
+  .toggle-check {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+
+    .container {
+      width: 40px;
+      height: 40px;
+    }
+  }
+
+  .round {
+    position: relative;
+  }
+
+  .round label {
+    background-color: #ECECEC;
+    border: 1px solid #ccc;
+    border-radius: 50%;
+    cursor: pointer;
+    height: 28px;
+    left: 0;
+    position: absolute;
+    top: 0;
+    width: 28px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 10px;
+    font-weight: 500;
+  }
+
+  .round {
+    input:checked ~ .checkmark {
+      background-color: #000000;
+      border-color: #000000;
+      color: #ffffff;
+    }
+  }
+
+  .round input[type="checkbox"]:checked + label:after {
+    opacity: 1;
+  }
+
+  .round:hover {
+    label {
+        border-color: #000000;
+    }
+  }
+
+}
+
+
