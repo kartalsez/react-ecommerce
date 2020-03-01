@@ -4,10 +4,6 @@ import ProductList from "./product-list/product-list";
 
 class Products extends Component{
 
-    componentWillReceiveProps(nextProps) {
-        console.log('nextProps', nextProps);
-    }
-
     render() {
         return (
             <div className="products">
@@ -19,7 +15,7 @@ class Products extends Component{
                         <span>Order by ...</span>
                     </div>
                 </header>
-                <ProductList></ProductList>
+                <ProductList filteredSizes={this.props.filteredSizes}></ProductList>
             </div>
         );
     }

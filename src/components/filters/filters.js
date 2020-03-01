@@ -20,21 +20,22 @@ class Filter extends Component {
         this.toggleCheckboxChange = this.toggleCheckboxChange.bind(this);
     }
 
-    componentWillMount() {
+    UNSAFE_componentWillMount() {
         this.selectedCheckboxes = new Set();
     }
 
     toggleCheckboxChange(index) {
-        this.setState({
-            checkList: this.state.checkList.map(item => {
-                return {
-                    ...item,
-                    isChecked: item === this.state.checkList[index] ? !item.isChecked : item.isChecked
-                };
-            })
-        });
+        const newCheckList = this.state.checkList.map(item => {
+            return {
+                ...item,
+                isChecked: item === this.state.checkList[index] ? !item.isChecked : item.isChecked
+            }});
 
-        this.props.filterChange(this.state.checkList.filter(item => item.isChecked));
+        this.setState({
+            checkList: newCheckList
+            });
+
+        this.props.filterChange(newCheckList.filter(item => item.isChecked).map(item => item.label));
     }
 
 
