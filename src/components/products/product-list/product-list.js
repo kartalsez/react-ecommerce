@@ -6,7 +6,7 @@ import axios from 'axios';
 class ProductList extends Component{
 
     state = {
-        products: [],
+        products: []
     };
     allProducts = [];
 
@@ -21,14 +21,18 @@ class ProductList extends Component{
     }
 
     componentDidUpdate(prevProps) {
-        if (prevProps.filteredSizes !== this.props.filteredSizes) {
+        if (prevProps.filteredSizes !== this.props.filteredSizes || prevProps.selectedOrder !== this.props.selectedOrder) {
+            const filteredProducts = this.filterProducts();
+            const orderedProducts = this.orderProducts(filteredProducts ? filteredProducts : []);
+
             this.setState({
-               products: this.filterProducts(this.props.filteredSizes)
-        });
+               products: orderedProducts
+            });
         }
     }
 
-    filterProducts(newFilteredSizes) {
+    filterProducts() {
+        const newFilteredSizes = this.props.filteredSizes;
         return this.allProducts.filter((product_, index) => {
             if (newFilteredSizes.length > 0) {
                 return product_.availableSizes.some(item => newFilteredSizes.includes(item));
@@ -36,6 +40,12 @@ class ProductList extends Component{
                 return true;
             }
         });
+    }
+
+    orderProducts(filteredProducts) {
+        const selectedOrder = this.props.selectedOrder;
+        return filteredProducts.sort((a, b) =>
+            selectedOrder === 'asc' ? a.price - b.price : selectedOrder === 'desc' ? b.price - a.price : a.price - a.price);
     }
 
     render() {
