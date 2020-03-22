@@ -7,18 +7,20 @@ class Products extends Component{
 
     constructor(props) {
         super(props);
-        this.state = {selectedOrder: 'none', productsNumber: 0};
+        this.state = {selectedOrder: 'none', listedProductNumber: 0};
     }
 
     selectionChange = (selectedOrder) => {
         this.setState({selectedOrder: selectedOrder});
     };
 
+    onListProducts = (listedProductNumber) => ( this.setState({listedProductNumber: listedProductNumber}) );
+
     render() {
         return (
             <div className="products">
-                <ShelfHeader selectionChange={this.selectionChange}></ShelfHeader>
-                <ProductList filteredSizes={this.props.filteredSizes} selectedOrder={this.state.selectedOrder}></ProductList>
+                <ShelfHeader selectionChange={this.selectionChange} listedProductNumber={this.state.listedProductNumber}></ShelfHeader>
+                <ProductList filteredSizes={this.props.filteredSizes} selectedOrder={this.state.selectedOrder} listedProductNumber={this.onListProducts}></ProductList>
             </div>
         );
     }

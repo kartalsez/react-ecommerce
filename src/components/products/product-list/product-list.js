@@ -14,9 +14,8 @@ class ProductList extends Component{
         axios.get(`http://localhost:8001/api/products`)
             .then(res => {
                 this.allProducts = res.data.products;
-                this.setState((state, props) => ({
-                    products: this.allProducts
-                }));
+                this.setState({products: this.allProducts});
+                this.props.listedProductNumber(this.allProducts.length);
             })
     }
 
@@ -25,9 +24,8 @@ class ProductList extends Component{
             const filteredProducts = this.filterProducts();
             const orderedProducts = this.orderProducts(filteredProducts ? filteredProducts : []);
 
-            this.setState({
-               products: orderedProducts
-            });
+            this.setState({products: orderedProducts});
+            this.props.listedProductNumber(orderedProducts.length);
         }
     }
 

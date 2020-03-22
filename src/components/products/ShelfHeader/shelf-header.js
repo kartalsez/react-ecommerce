@@ -17,7 +17,7 @@ class ShelfHeader extends Component{
         return (
             <header>
                 <div className="col1">
-                    <span>{this.props.productsNumber} Product(s) found.</span>
+                    <span>{this.props.listedProductNumber} Product(s) found.</span>
                 </div>
                 <div className="col2">
                     <span>Order by</span>
