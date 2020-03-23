@@ -1,7 +1,73 @@
+$navBackColor: gray;
 
 .App {
-  max-width: 1200px;
-display: flex;
-flex-direction: row;
-margin: 50px auto 0;
+
+  main {
+    max-width: 1200px;
+    display: flex;
+    flex-direction: row;
+    margin: 50px auto 0;
+  }
+
+  nav {
+    position: absolute;
+    width: 450px;
+    right: 0px;
+    top: 0;
+    padding: 24px;
+    background-color: $navBackColor;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+
+    header {
+      height: 150px;
+      background-color: #eabf00;
+      display: flex;
+      flex-direction: row;
+      justify-content: center;
+      align-items: center;
+    }
+
+    section {
+      height: 100%;
+      overflow-y: scroll;
+      background-color: $navBackColor;
+
+      p {
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        align-items: center;
+        height: 50px;
+        border-color: white;
+        border-style: solid;
+        border-width: 1px;
+      }
+    }
+
+    footer {
+      height: 150px;
+      background-color: $navBackColor;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-around;
+
+      div {
+        width: 100%;
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+      }
+
+      button {
+        height: 50px;
+        background-color: black;
+        color: white;
+        border-color: $navBackColor;
+        font-size: 17px;
+      }
+    }
+
+  }
 }

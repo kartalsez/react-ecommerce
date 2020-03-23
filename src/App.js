@@ -21,10 +21,34 @@ class App extends Component{
     render() {
         return (
             <div className="App">
-                <Filter filterChange={this.filterChange} ></Filter>
-                <Products filteredSizes={this.state.filteredSizes}></Products>
+                <main>
+                    <Filter filterChange={this.filterChange} ></Filter>
+                    <Products filteredSizes={this.state.filteredSizes}></Products>
+                </main>
+                <nav>
+                    <header>
+                        header...
+                    </header>
+                    <section>
+                        <p>Section</p>
+                        <p>Section</p>
+                        <p>Section</p>
+                        <p>Section</p>
+                        <p>Section</p>
+                        <p>Section</p>
+                        <p>Section</p>
+                        <p>Section</p>
+                    </section>
+                    <footer>
+                        <div>
+                            <span>asd</span>
+                            <span>dfg</span>
+                        </div>
+                        <button>CHECKOUT</button>
+                    </footer>
+                </nav>
             </div>
-        );
+    );
     }
 }
 
