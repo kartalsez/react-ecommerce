@@ -21,7 +21,7 @@ class Product extends Component{
     render() {
         return (
             <div className="product">
-                <img src={require(`../../../../../static/products/${this.props.product.sku}_1.jpg`)}
+                <img src={require(`../../../../static/products/${this.props.product.sku}_1.jpg`)}
                      alt={this.props.product.title} title={this.props.product.title}/>
                  <p>{this.props.product.title}</p>
                 <section className="price">
