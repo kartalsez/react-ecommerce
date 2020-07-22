@@ -10,18 +10,28 @@ export class SalesBasket extends Component {
 
     constructor(props) {
         super(props);
+        this.state = {
+            isClickClose: false
+        };
     }
 
     render() {
 
         return (
-            <div>
-                <div className="close">
-                    <span>X</span>
+            <div className={this.state.isClickClose ? "click-close " : "click-open"}>
+                <div className="close" onClick={() => this.setState({isClickClose: !this.state.isClickClose})}>
+                    {this.state.isClickClose ?
+                        <div className="basket-icon">
+                            <FontAwesomeIcon icon={"shopping-cart"} size={"2x"}/>
+                            <span className="dot">5</span>
+                        </div>
+                        :
+                        <span>X</span>
+                    }
                 </div>
                 <div className="shopping-card">
                     <header>
-                        <div>
+                        <div className="basket-icon">
                             <FontAwesomeIcon icon={"shopping-cart"} size={"2x"}/>
                             <span className="dot">5</span>
                         </div>
@@ -30,55 +40,7 @@ export class SalesBasket extends Component {
                     <section className="product-row">
                         <div className="product-row">
                             <div className="col-1">
-                                <img src={require(`../../static/products/100_2.jpg`)} alt={""} />
-                            </div>
-                            <div className="col-2">
-                                col2
-                            </div>
-                            <div className="col-3">
-                                col3
-                            </div>
-                        </div>
-
-                        <div className="product-row">
-                            <div className="col-1">
-                                <img src={require(`../../static/products/100_2.jpg`)} alt={""} />
-                            </div>
-                            <div className="col-2">
-                                col2
-                            </div>
-                            <div className="col-3">
-                                col3
-                            </div>
-                        </div>
-
-                        <div className="product-row">
-                            <div className="col-1">
-                                <img src={require(`../../static/products/100_2.jpg`)} alt={""} />
-                            </div>
-                            <div className="col-2">
-                                col2
-                            </div>
-                            <div className="col-3">
-                                col3
-                            </div>
-                        </div>
-
-                        <div className="product-row">
-                            <div className="col-1">
-                                <img src={require(`../../static/products/100_2.jpg`)} alt={""} />
-                            </div>
-                            <div className="col-2">
-                                col2
-                            </div>
-                            <div className="col-3">
-                                col3
-                            </div>
-                        </div>
-
-                        <div className="product-row">
-                            <div className="col-1">
-                                <img src={require(`../../static/products/100_2.jpg`)} alt={""} />
+                                <img src={require(`../../static/products/100_2.jpg`)} alt={""}/>
                             </div>
                             <div className="col-2">
                                 col2
@@ -100,6 +62,6 @@ export class SalesBasket extends Component {
                     </footer>
                 </div>
             </div>
-    );
+        );
     }
 }

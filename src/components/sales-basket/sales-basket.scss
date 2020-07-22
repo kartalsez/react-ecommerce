@@ -3,23 +3,56 @@ $navBackHoverColor: #1b1a20;
 $grayTextColor: #5b5a5e;
 
 nav {
+  .click-close {
+    .close {
+      right: 0;
+      padding: 4px;
+    }
+    .shopping-card {
+      right: -498px;
+    }
+  }
+  .click-open {
+    .close {
+      right: 498px;
+      padding: 16px;
+    }
+    .shopping-card {
+      right: 0;
+    }
+  }
   .close {
     background-color: $navBackColor;
     color: white;
     position: fixed;
-    right: 498px;
     top: 0;
-    padding: 16px;
     cursor: pointer;
   }
   .close:hover {
     background-color: $navBackHoverColor;
   }
 
+  .basket-icon {
+    .dot {
+      height: 20px;
+      width: 20px;
+      background-color: #eabf00;
+      border-radius: 50%;
+      display: inline-block;
+      text-align: center;
+      font-size: 14px;
+      font-weight: 500;
+      color: black;
+      margin-left: -18px;
+    }
+    span {
+      margin-left: 8px;
+    }
+  }
+
   .shopping-card {
     position: fixed;
     width: 450px;
-    right: 0px;
     top: 0;
     padding: 24px;
     background-color: $navBackHoverColor;
@@ -36,24 +69,6 @@ nav {
       flex-direction: row;
       justify-content: center;
       align-items: center;
-
-      div {
-        .dot {
-          height: 20px;
-          width: 20px;
-          background-color: #eabf00;
-          border-radius: 50%;
-          display: inline-block;
-          text-align: center;
-          font-size: 14px;
-          font-weight: 500;
-          color: black;
-          margin-left: -18px;
-        }
-        span {
-          margin-left: 8px;
-        }
-      }
 
       span {
         font-size: 20px;
