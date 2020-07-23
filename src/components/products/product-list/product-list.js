@@ -46,10 +46,14 @@ class ProductList extends Component{
             selectedOrder === 'asc' ? a.price - b.price : selectedOrder === 'desc' ? b.price - a.price : a.price - a.price);
     }
 
+    addProduct = (product) => {
+        this.props.addProduct(product);
+    };
+
     render() {
         const products = this.state.products
             .map((product_, index) => {
-            return <Product product={product_} key={index}></Product>;
+            return <Product product={product_} key={index} addProduct={() => this.addProduct(product_)}></Product>;
         });
 
         return (

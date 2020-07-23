@@ -1,7 +1,13 @@
 import React, { Component } from "react";
 import './product.scss';
 
-class Product extends Component{
+class Product extends Component {
+    product;
+    constructor(props) {
+        super(props);
+        this.product = this.props.product;
+        this.onClickAdd = this.onClickAdd.bind(this);
+    }
 
     splitPrice(index) {
         const splitted = (this.props.product.price + '').split('.');
@@ -18,22 +24,26 @@ class Product extends Component{
         return Number.parseFloat(installmentPrice).toFixed(2);
     }
 
+    onClickAdd() {
+        this.props.addProduct();
+    }
+
     render() {
         return (
             <div className="product">
-                <img src={require(`../../../../static/products/${this.props.product.sku}_1.jpg`)}
-                     alt={this.props.product.title} title={this.props.product.title}/>
-                 <p>{this.props.product.title}</p>
+                <img src={require(`../../../../static/products/${this.product?.sku}_1.jpg`)}
+                     alt={this.product?.title} title={this.product?.title}/>
+                 <p>{this.product?.title}</p>
                 <section className="price">
-                    <small>{this.props.product.currencyFormat}</small>
+                    <small>{this.product?.currencyFormat}</small>
                     <b>{this.splitPrice(0)}</b>
                     <span>{'.' + this.splitPrice(1)}</span>
                 </section>
                 <section className="installment">
-                    <span>or {this.props.product.installments} x</span>
-                    <b>{this.props.product.currencyFormat + this.calculateInstallmentPrice()}</b>
+                    <span>or {this.product?.installments} x</span>
+                    <b>{this.product?.currencyFormat + this.calculateInstallmentPrice()}</b>
                 </section>
-                <button>Add to Card</button>
+                <button onClick={() => this.onClickAdd()}>Add to Card</button>
             </div>
         );
     }

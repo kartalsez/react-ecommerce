@@ -9,7 +9,8 @@ class App extends Component{
     constructor(props) {
         super(props);
         this.state = {
-            filteredSizes: []
+            filteredSizes: [],
+            selectedProducts: []
         };
     }
 
@@ -19,15 +20,30 @@ class App extends Component{
         });
     };
 
+    addProduct = (product) => {
+        if (this.state.selectedProducts.find(_ => _.id === product.id)) {
+            this.setState({
+                selectedProducts: this.state.selectedProducts.map(_ => {
+                    return {..._, quantity: _.id === product.id ? _.quantity + 1 : _.quantity};
+                })
+            });
+        } else {
+            product['quantity'] = 1;
+            this.state.selectedProducts.push(product);
+            this.setState({selectedProducts: this.state.selectedProducts});
+        }
+
+    }
+
     render() {
         return (
             <div className="App">
                 <main>
                     <Filter filterChange={this.filterChange} ></Filter>
-                    <Products filteredSizes={this.state.filteredSizes}></Products>
+                    <Products filteredSizes={this.state.filteredSizes} addProduct={this.addProduct}></Products>
                 </main>
                 <nav>
-                    <SalesBasket></SalesBasket>
+                    <SalesBasket selectedProducts={this.state.selectedProducts}></SalesBasket>
                 </nav>
             </div>
     );
