@@ -11,8 +11,21 @@ export class SalesBasket extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            isClickClose: false
+            isClickClose: false,
+            totalPrice: 0.0
         };
+    }
+
+    componentDidUpdate(prevProps, prevState, snapshot) {
+        if (prevProps !== this.props) {
+            this.calculateTotatlPrice();
+        }
+    }
+
+    calculateTotatlPrice() {
+        const totalPrice = this.props.selectedProducts && this.props.selectedProducts.length > 0 ? this.props.selectedProducts
+            .reduce((total, val) => total + (val.quantity ? val.quantity * val.price : val.price), 0.0) : 0.0;
+        this.setState({totalPrice: totalPrice});
     }
 
     render() {
@@ -28,10 +41,10 @@ export class SalesBasket extends Component {
                             </div>
                             <div className="col-3">
                                 <FontAwesomeIcon icon={"times"} cursor={"pointer"} color={"#5b5a5e"} size={"1x"}/>
-                                <span style={{color: "#eabf00"}}>{selectedProduct_.currencyFormat + ' '}{selectedProduct_.price}</span>
+                                <span style={{color: "#eabf00"}}>{selectedProduct_.currencyFormat + ' '}{selectedProduct_.price.toFixed(2)}</span>
                                 <div>
-                                    <button>-</button>
-                                    <button>+</button>
+                                    <button onClick={() => this.onClickAmounChangeButton('-')}>-</button>
+                                    <button onClick={() => this.onClickAmounChangeButton('+')}>+</button>
                                 </div>
                             </div>
                         </div>;
@@ -57,14 +70,14 @@ export class SalesBasket extends Component {
                         </div>
                         <span>Cart</span>
                     </header>
-                    <section>
+                    <section className="product-item">
                         {addedProducts}
                     </section>
                     <footer>
                         <div className="sub">
                             <span className="sub-total">SUBTOTAL</span>
                             <div className="sub-price">
-                                <span>$ 19.90</span>
+                                <span>$ {this.state.totalPrice.toFixed(2)}</span>
                                 <small>OR UP TO 9 x $ 2.21</small>
                             </div>
                         </div>

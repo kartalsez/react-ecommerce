@@ -75,6 +75,10 @@ nav {
       }
     }
 
+    .product-item::-webkit-scrollbar {
+      display: none;
+    }
+
     section {
       height: 100%;
       background-color: $navBackHoverColor;
