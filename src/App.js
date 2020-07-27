@@ -35,6 +35,10 @@ class App extends Component{
 
     }
 
+    updatedAmount = (updatedProductList) => {
+        this.setState({selectedProducts: updatedProductList});
+    }
+
     render() {
         return (
             <div className="App">
@@ -43,7 +47,7 @@ class App extends Component{
                     <Products filteredSizes={this.state.filteredSizes} addProduct={this.addProduct}></Products>
                 </main>
                 <nav>
-                    <SalesBasket selectedProducts={this.state.selectedProducts}></SalesBasket>
+                    <SalesBasket selectedProducts={this.state.selectedProducts} updatedAmount={this.updatedAmount}></SalesBasket>
                 </nav>
             </div>
     );

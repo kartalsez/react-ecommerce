@@ -2,10 +2,8 @@ import React, { Component } from "react";
 import './product.scss';
 
 class Product extends Component {
-    product;
     constructor(props) {
         super(props);
-        this.product = this.props.product;
         this.onClickAdd = this.onClickAdd.bind(this);
     }
 
@@ -31,17 +29,17 @@ class Product extends Component {
     render() {
         return (
             <div className="product">
-                <img src={require(`../../../../static/products/${this.product?.sku}_1.jpg`)}
-                     alt={this.product?.title} title={this.product?.title}/>
-                 <p>{this.product?.title}</p>
+                <img src={require(`../../../../static/products/${this.props.product?.sku}_1.jpg`)}
+                     alt={this.props.product.title} title={this.props.product?.title}/>
+                 <p>{this.props.product?.title}</p>
                 <section className="price">
-                    <small>{this.product?.currencyFormat}</small>
+                    <small>{this.props.product?.currencyFormat}</small>
                     <b>{this.splitPrice(0)}</b>
                     <span>{'.' + this.splitPrice(1)}</span>
                 </section>
                 <section className="installment">
-                    <span>or {this.product?.installments} x</span>
-                    <b>{this.product?.currencyFormat + this.calculateInstallmentPrice()}</b>
+                    <span>or {this.props.product?.installments} x</span>
+                    <b>{this.props.product?.currencyFormat + this.calculateInstallmentPrice()}</b>
                 </section>
                 <button onClick={() => this.onClickAdd()}>Add to Card</button>
             </div>
