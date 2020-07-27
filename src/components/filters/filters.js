@@ -17,11 +17,6 @@ class Filter extends Component {
         this.state = {
             checkList: availableSizes
         };
-        this.toggleCheckboxChange = this.toggleCheckboxChange.bind(this);
-    }
-
-    UNSAFE_componentWillMount() {
-        this.selectedCheckboxes = new Set();
     }
 
     toggleCheckboxChange(index) {
@@ -44,7 +39,7 @@ class Filter extends Component {
         const checkBoxList = this.state.checkList.map((item, index) =>
            <div className="container" key={index} onClick={() => this.toggleCheckboxChange(index)}>
                <div className="round">
-                   <input type="checkbox" key={index} checked={item.isChecked} />
+                   <input type="checkbox" key={index} checked={item.isChecked} onChange={() => this.toggleCheckboxChange(index)} />
                    <label htmlFor="checkbox" className="checkmark">{item.label}</label>
                </div>
            </div>
