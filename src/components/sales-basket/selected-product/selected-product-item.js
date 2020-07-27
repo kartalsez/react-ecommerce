@@ -11,7 +11,7 @@ const SelectedProductItem = (props) => {
     return (
         <div className="product-row">
             <div className="col-1">
-                <img src={require(`../../../static/products/${props.selectedProduct.sku}_2.jpg`)} alt={""}/>
+                <img src={require(`../../../static/products-collins/${props.selectedProduct.sku}_2.jpeg`)} alt={""}/>
             </div>
             <div className="col-2">
                 <span>{props.selectedProduct.title}</span>
