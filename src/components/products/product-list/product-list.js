@@ -2,56 +2,28 @@ import React, { Component } from "react";
 import './product-list.scss';
 import Product from "./product/product";
 import axios from 'axios';
+import { setProducts } from "../../../features/products/productsSlice";
+import { addProductToBasket } from "../../../features/basket-products/basketProductsSlice";
+import { connect } from 'react-redux'
+import { createSelector } from "@reduxjs/toolkit";
+
+const mapDispatch = { setProducts, addProductToBasket }
 
 class ProductList extends Component{
-
-    state = {
-        products: []
-    };
-    allProducts = [];
 
     componentDidMount() {
         axios.get(`http://localhost:8001/api/products`)
             .then(res => {
-                this.allProducts = res.data.products;
-                this.setState({products: this.allProducts});
-                this.props.listedProductNumber(this.allProducts.length);
+                this.props.setProducts(JSON.parse(JSON.stringify(res.data.products))); // store setProducts dispatch
             })
     }
 
-    componentDidUpdate(prevProps) {
-        if (prevProps.filteredSizes !== this.props.filteredSizes || prevProps.selectedOrder !== this.props.selectedOrder) {
-            const filteredProducts = this.filterProducts();
-            const orderedProducts = this.orderProducts(filteredProducts ? filteredProducts : []);
-
-            this.setState({products: orderedProducts});
-            this.props.listedProductNumber(orderedProducts.length);
-        }
-    }
-
-    filterProducts() {
-        const newFilteredSizes = this.props.filteredSizes;
-        return this.allProducts.filter((product_, index) => {
-            if (newFilteredSizes.length > 0) {
-                return product_.availableSizes.some(item => newFilteredSizes.includes(item));
-            } else {
-                return true;
-            }
-        });
-    }
-
-    orderProducts(filteredProducts) {
-        const selectedOrder = this.props.selectedOrder;
-        return filteredProducts.sort((a, b) =>
-            selectedOrder === 'asc' ? a.price - b.price : selectedOrder === 'desc' ? b.price - a.price : a.price - a.price);
-    }
-
     addProduct = (product) => {
-        this.props.addProduct(product);
+        this.props.addProductToBasket(product); // store dispatch
     };
 
     render() {
-        const products = this.state.products
+        const products = JSON.parse(JSON.stringify(this.props.filteredProducts))
             .map((product_, index) => {
             return <Product product={product_} key={index} addProduct={() => this.addProduct(product_)}></Product>;
         });
@@ -64,4 +36,18 @@ class ProductList extends Component{
     }
 }
 
-export default ProductList;
+const selectFilteredProducts = state => state.products.filteredProducts
+
+const selectorFilteredProducts = createSelector(
+    [selectFilteredProducts],
+    filteredProducts => filteredProducts
+)
+
+const mapStateToProps = state => ({
+    filteredProducts: selectorFilteredProducts(state)
+})
+
+export default connect(
+    mapStateToProps,
+    mapDispatch
+)(ProductList);

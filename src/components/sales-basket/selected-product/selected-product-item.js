@@ -6,7 +6,6 @@ import { faTimes } from "@fortawesome/fontawesome-free-solid";
 
 fontawesome.library.add(faTimes);
 
-
 const SelectedProductItem = (props) => {
     return (
         <div className="product-row">
@@ -31,3 +30,4 @@ const SelectedProductItem = (props) => {
 }
 
 export default SelectedProductItem;
+

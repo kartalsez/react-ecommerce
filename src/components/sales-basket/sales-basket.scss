@@ -7,18 +7,22 @@ nav {
     .close {
       right: 0;
       padding: 4px;
+      transition: right 500ms, padding 500ms;
     }
     .shopping-card {
       right: -498px;
+      transition: right 500ms;
     }
   }
   .click-open {
     .close {
       right: 498px;
       padding: 16px;
+      transition: right 500ms, padding 500ms;
     }
     .shopping-card {
       right: 0;
+      transition: right 500ms;
     }
   }
   .close {

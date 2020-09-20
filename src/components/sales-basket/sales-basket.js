@@ -4,10 +4,15 @@ import './sales-basket.scss';
 import fontawesome from '@fortawesome/fontawesome';
 import { faShoppingCart } from '@fortawesome/fontawesome-free-solid';
 import SelectedProductItem from './selected-product/selected-product-item';
+import { changeAmount } from "../../features/basket-products/basketProductsSlice";
+import { createSelector } from "@reduxjs/toolkit";
+import { connect } from "react-redux";
+
+const mapDispatch = { changeAmount };
 
 fontawesome.library.add(faShoppingCart);
 
-export class SalesBasket extends Component {
+class SalesBasket extends Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -24,13 +29,13 @@ export class SalesBasket extends Component {
     }
 
     calculateTotalPrice() {
-        const totalPrice = this.props.selectedProducts && this.props.selectedProducts.length > 0 ? this.props.selectedProducts
+        const totalPrice = this.props.basketProducts && this.props.basketProducts.length > 0 ? this.props.basketProducts
             .reduce((total, val) => total + (val.quantity ? val.quantity * val.price : val.price), 0.0) : 0.0;
         this.setState({totalPrice: totalPrice, installmentPrice: totalPrice / 9});
     }
 
     onClickAmountChangeButton(type, selectedProduct) {
-        let updatedProducts = this.props.selectedProducts;
+        let updatedProducts = JSON.parse(JSON.stringify(this.props.basketProducts));
         if (type === '-') {
             updatedProducts = updatedProducts.map(_ => {
                 return { ..._, quantity: _.id === selectedProduct.id ? _.quantity - 1 : _.quantity }
@@ -40,13 +45,14 @@ export class SalesBasket extends Component {
                 return { ..._, quantity: _.id === selectedProduct.id ? _.quantity + 1 : _.quantity }
             });
         } else {
-            updatedProducts.splice(this.props.selectedProducts.findIndex(_ => _.id === selectedProduct.id), 1);
+            const index = this.props.basketProducts.findIndex(_ => _.id === selectedProduct.id);
+            updatedProducts.splice(index, 1);
         }
-        this.props.updatedAmount(updatedProducts);
+        this.props.changeAmount(updatedProducts); // store dispatch
     }
 
     render() {
-        const addedProducts = this.props.selectedProducts && this.props.selectedProducts.length > 0 ? this.props.selectedProducts.map((selectedProduct_, index) =>
+        const addedProducts = this.props.basketProducts && this.props.basketProducts.length > 0 ? this.props.basketProducts.map((selectedProduct_, index) =>
                 <SelectedProductItem
                     selectedProduct={selectedProduct_}
                     key={index}
@@ -60,7 +66,7 @@ export class SalesBasket extends Component {
                     {this.state.isClickClose ?
                         <div className="basket-icon">
                             <FontAwesomeIcon icon={"shopping-cart"} size={"2x"}/>
-                            <span className="dot">{this.props.selectedProducts?.length}</span>
+                            <span className="dot">{this.props.basketProducts?.length}</span>
                         </div>
                         :
                         <span>X</span>
@@ -70,7 +76,7 @@ export class SalesBasket extends Component {
                     <header>
                         <div className="basket-icon">
                             <FontAwesomeIcon icon={"shopping-cart"} size={"2x"}/>
-                            <span className="dot">{this.props.selectedProducts?.length}</span>
+                            <span className="dot">{this.props.basketProducts?.length}</span>
                         </div>
                         <span>Cart</span>
                     </header>
@@ -92,3 +98,19 @@ export class SalesBasket extends Component {
         );
     }
 }
+
+const selectBasketProducts = state => state.salesBasketProducts.basketProducts
+
+const selectorBasketProducts = createSelector(
+    [selectBasketProducts],
+    basketProducts => basketProducts
+)
+
+const mapStateToProps = state => ({
+    basketProducts: selectorBasketProducts(state)
+})
+
+export default connect(
+    mapStateToProps,
+    mapDispatch
+)(SalesBasket);

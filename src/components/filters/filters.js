@@ -1,5 +1,9 @@
 import React, { Component } from "react";
 import './filters.scss';
+import { setFilteredProducts } from "../../features/products/productsSlice";
+import { connect } from "react-redux";
+
+const mapDispatch = { setFilteredProducts }
 
 const availableSizes = [
     {label: 'XS', isChecked: false},
@@ -30,10 +34,12 @@ class Filter extends Component {
             checkList: newCheckList
             });
 
-        this.props.filterChange(newCheckList.filter(item => item.isChecked).map(item => item.label));
+        const payload = {
+          filterType: 'size',
+          filteredSizes: newCheckList.filter(item => item.isChecked).map(item => item.label)
+        };
+        this.props.setFilteredProducts(payload); // store dispatch
     }
-
-
 
     render() {
         const checkBoxList = this.state.checkList.map((item, index) =>
@@ -56,4 +62,8 @@ class Filter extends Component {
     }
 }
 
-export default Filter;
+export default connect(
+    null,
+    mapDispatch
+)(Filter);
+
