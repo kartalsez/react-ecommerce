@@ -12,9 +12,10 @@ const mapDispatch = { setProducts, addProductToBasket }
 class ProductList extends Component{
 
     componentDidMount() {
-        axios.get(`http://localhost:8001/api/products`)
+        // todo: localUrl = 'http://localhost:8001/api/products'
+        axios.get(`https://react-ecommerce-c1592.firebaseio.com/products.json`)
             .then(res => {
-                this.props.setProducts(JSON.parse(JSON.stringify(res.data.products))); // store setProducts dispatch
+                this.props.setProducts(JSON.parse(JSON.stringify(res.data))); // store setProducts dispatch
             })
     }
 
