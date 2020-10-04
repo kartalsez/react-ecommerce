@@ -2,6 +2,13 @@ header{
   display: flex;
   flex-direction: row;
   justify-content: space-between;
+  @media only screen and (max-width: 600px) {
+    flex-direction: column;
+    align-items: center;
+    .col1, .col2 {
+      margin-bottom: 16px;
+    }
+  }
 }
 
 select{

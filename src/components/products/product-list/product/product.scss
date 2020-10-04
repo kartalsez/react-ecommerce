@@ -10,6 +10,13 @@
   padding: 8px 0px 8px;
   border: 1px solid transparent;
 
+  @media only screen and (max-width: 600px) {
+    max-width: 98%;
+  }
+  @media screen and (min-width: 600px) and (max-width: 959px) {
+    max-width: 48%;
+  }
+
   img {
     width: 200px;
   }
