@@ -16,7 +16,7 @@ class SalesBasket extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            isClickClose: false,
+            isClickClose: true,
             totalPrice: 0.0,
             installmentPrice: 0.0
         };
